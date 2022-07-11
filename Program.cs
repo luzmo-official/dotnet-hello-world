@@ -1,18 +1,18 @@
 using CumulioAPI;
 using System.Dynamic;
 using dotenv.net;
+using System;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 DotEnv.Load();
 var envVars = DotEnv.Read();
 
-Console.WriteLine(envVars["CUMUL_KEY"]);
-
 app.MapGet("/", () => {
-  Cumulio client = new Cumulio(envVars["CUMUL_KEY"], envVars["CUMUL_TOKEN"], envVars["API_URL"], "443");
+  Cumulio client = new Cumulio(envVars["CUMUL_KEY"], envVars["CUMUL_TOKEN"], envVars["API_URL"], "1338");
   dynamic properties = new ExpandoObject();
-  properties.integration_id = process.env.INTEGRATION_ID;
+  properties.integration_id = envVars["INTEGRATION_ID"];
   properties.type = "sso";
   properties.expiry = "24 hours";
   properties.inactivity_interval = "1 year";
@@ -26,8 +26,9 @@ app.MapGet("/", () => {
   dynamic authResp = new ExpandoObject();
   authResp.key = authorization.id;
   authResp.token = authorization.token;
+  authResp.status = "success";
 
-  return Jsonconvert.SerializeObject(authResp);
+  return JsonConvert.SerializeObject(authResp);
 });
 
 app.Run();
