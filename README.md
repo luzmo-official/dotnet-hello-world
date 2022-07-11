@@ -2,5 +2,6 @@
 
 ## Usage
 ```
+dotnet restore
 dotnet run
 ```
