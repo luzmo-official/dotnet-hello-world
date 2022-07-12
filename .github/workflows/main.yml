@@ -37,7 +37,7 @@ jobs:
       - name: Zip File
         run: |
           rm -rf dotnet-hello-world.zip
-          zip -r dotnet-hello-world.zip * .env.example .git
+          zip -r dotnet-hello-world.zip * .env.example .git .gitignore
 
       # Runs a set of commands using the runners shell
       - name: Upload an invalidate
