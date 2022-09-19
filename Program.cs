@@ -10,7 +10,7 @@ DotEnv.Load();
 var envVars = DotEnv.Read();
 
 app.MapGet("/", () => {
-  Cumulio client = new Cumulio(envVars["CUMUL_KEY"], envVars["CUMUL_TOKEN"], envVars["API_URL"], "1338");
+  Cumulio client = new Cumulio(envVars["CUMUL_KEY"], envVars["CUMUL_TOKEN"], envVars["API_URL"]);
   dynamic properties = new ExpandoObject();
   properties.integration_id = envVars["INTEGRATION_ID"];
   properties.type = "sso";
